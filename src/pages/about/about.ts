@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
-import { QRScanner, QRScannerStatus } from '@ionic-native/qr-scanner';
+import { QRScanner } from '@ionic-native/qr-scanner';
 import { AlertController } from 'ionic-angular';
 import { Platform } from 'ionic-angular';
+import * as Constants from '../../app/constants';
 
 @Component({
   selector: 'page-about',
@@ -17,7 +18,6 @@ export class AboutPage {
   }
 
   ionViewDidEnter() {
-
     // start scanning
     let scanSub = this.qrScanner.scan().subscribe((text: string) => {
 
