@@ -16,6 +16,10 @@
 // automatically applied to the <body> element in the app.
 
 .transparent {
-    opacity: 0 !important;
-    background: transparent none !important; 
+    opacity: 0;
+    background: none transparent; 
+}
+
+.opaque {
+    opacity: 1 !important;
 }

@@ -18,6 +18,20 @@ export class AboutPage {
   }
 
   ionViewDidEnter() {
+    this.scan();
+  }
+
+  closeQrScanner() {
+    this.qrScanner.hide().then(()=>{
+      window.document.querySelector('ion-app').classList.remove('transparent');
+    });
+  }
+
+  ngOnDestroy() {
+    this.closeQrScanner();
+  }  
+
+  scan() {
     // start scanning
     let scanSub = this.qrScanner.scan().subscribe((text: string) => {
 
@@ -40,15 +54,4 @@ export class AboutPage {
       window.document.querySelector('ion-app').classList.add('transparent');
     });
   }
-
-  closeQrScanner() {
-    this.qrScanner.hide().then(()=>{
-      window.document.querySelector('ion-app').classList.remove('transparent');
-    });
-  }
-
-  ngOnDestroy() {
-    this.closeQrScanner();
-  }  
-
 }
