@@ -35,7 +35,7 @@ import { QRScanner, QRScannerStatus } from '@ionic-native/qr-scanner';
   providers: [
     StatusBar,
     SplashScreen,
-    QRScanner, QRScannerStatus,
+    QRScanner,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })
