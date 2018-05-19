@@ -15,9 +15,24 @@
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
 
+.bgTransparent {
+    background: transparent !important;
+}
+
+.bgGold {
+    background: gold;
+}
+
+.bgTomato {
+    background: tomato;
+}
+
+.bgGreen {
+    background: greenyellow;
+}
+
 .transparent {
-    opacity: 0;
-    background: none transparent; 
+    opacity: 0 !important;
 }
 
 .opaque {

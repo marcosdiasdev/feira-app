@@ -4,13 +4,19 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content style="background:tomato">
-  <ion-grid class="opaque">
+<ion-content class="bgTransparent">
+  <ion-grid>
       <ion-row justify-content-center>
-        <ion-col col-6>
-          <button ion-button block color="primary" 
-          (click)="scan()">Ler QR Code</button>
+        <ion-col>
+          <ion-card>
+            <ion-card-content text-center>
+                Centralize o QR Code e aguarde a confirmação para identificação do produto.
+            </ion-card-content>
+          </ion-card>
         </ion-col>
       </ion-row>      
   </ion-grid>
+  <div>
+      <img src="assets/imgs/scan-guides.svg">
+  </div>
 </ion-content>
