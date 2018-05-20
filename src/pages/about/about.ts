@@ -1,7 +1,8 @@
 import { Component, ViewChild } from '@angular/core';
 import { AlertController, Content } from 'ionic-angular';
-import { NavController, Platform } from 'ionic-angular';
+import { NavController } from 'ionic-angular';
 import { QRScanner } from '@ionic-native/qr-scanner';
+import { ProdutorPage } from '../produtor/produtor';
 
 @Component({
   selector: 'page-about',
@@ -14,8 +15,7 @@ export class AboutPage {
 
   constructor(public navCtrl: NavController,
               private qrScanner: QRScanner,
-              public alertCtrl: AlertController,
-              private platform: Platform) {
+              public alertCtrl: AlertController) {
   }
 
   ionViewDidEnter() {
@@ -27,20 +27,16 @@ export class AboutPage {
   }
 
   scan() {
-    console.log('Started sacanning...')
-    let scanSub = this.qrScanner.scan().subscribe((text: string) => {
-
-      let alert = this.alertCtrl.create({
-        title: 'QR Code Encontrado',
-        subTitle: `O valor ${text} foi lido com sucesso.`,
-        buttons: ['OK']
-      });
+    let scanSub = this.qrScanner.scan().subscribe((data: string) => {
 
       this.qrScanner.hide(); // hide camera preview
       scanSub.unsubscribe(); // stop scanning
-      alert.present();
-    });
 
+      // Navigates to ProdutorPage with data read from QR Scanner
+      this.navCtrl.push(ProdutorPage, {
+        qrData: data
+      });
+    });
     this.qrScanner.show();
   }
 }
