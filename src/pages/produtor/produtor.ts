@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { constants } from '../../app/constants';
+import { ProdutorProvider } from '../../providers/produtor/produtor';
 
 @Component({
   selector: 'page-produtor',
@@ -9,19 +10,33 @@ import { constants } from '../../app/constants';
 export class ProdutorPage {
 
   public produtor;
+  public produtor_id;
   public isValid = true;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController,
+              public produtorProvider: ProdutorProvider,
+              public navParams: NavParams) {
+                console.log("Produtor initialized")
   }
 
   ionViewDidLoad() {
-    let data = this.navParams.data.qrData;
-
-    if(data.substr(0, constants.QR_PATTERN.length) == constants.QR_PATTERN) {
-      this.isValid = true;
-      this.produtor = data;
-    } else {
-      this.produtor = 'Código QR inválido. Este produtor não está registrado no ' + constants.APP_NAME;
-    } 
+    /*
+    this.produtor_id = this.navParams.data.qrData;
+    this.produtorProvider.produtorById(this.produtor_id)
+      //.subscribe(produtor => this.produtor = produtor);
+      .subscribe(produtor => console.log("Did load: " + JSON.stringify(produtor)))
   }
+  */
+
+  this.produtor_id = this.navParams.data.qrData;
+  this.produtorProvider.produtorById(this.produtor_id)
+    .subscribe(produtor => {
+      this.produtor = produtor
+      console.log('Got data: ' + JSON.stringify(this.produtor))
+    },
+    error => {
+      console.log('Unable to get data.')
+    });
+}  
+
 }

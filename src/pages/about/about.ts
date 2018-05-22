@@ -3,6 +3,7 @@ import { AlertController, Content } from 'ionic-angular';
 import { NavController } from 'ionic-angular';
 import { QRScanner } from '@ionic-native/qr-scanner';
 import { ProdutorPage } from '../produtor/produtor';
+import { constants } from '../../app/constants';
 
 @Component({
   selector: 'page-about',
@@ -28,14 +29,20 @@ export class AboutPage {
 
   scan() {
     let scanSub = this.qrScanner.scan().subscribe((data: string) => {
-
-      this.qrScanner.hide(); // hide camera preview
-      scanSub.unsubscribe(); // stop scanning
-
-      // Navigates to ProdutorPage with data read from QR Scanner
-      this.navCtrl.push(ProdutorPage, {
-        qrData: data
-      });
+      console.log('Got a QR Code.')
+      // If the code matches de pattern
+      if(data.substr(0, constants.QR_PATTERN.length) == constants.QR_PATTERN) {
+        this.qrScanner.hide(); // hide camera preview
+        scanSub.unsubscribe(); // stop scanning
+        // Navigates to ProdutorPage with data read from QR Scanner
+        console.log(data.split('=')[1])
+        this.navCtrl.push(ProdutorPage, {
+          qrData: data.split('=')[1]
+        });
+      } else {
+          console.log('Invalid QR Code. Rescaning...')
+          this.scan();
+      }
     });
     this.qrScanner.show();
   }

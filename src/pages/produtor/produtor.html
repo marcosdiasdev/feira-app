@@ -5,5 +5,6 @@
 </ion-header>
 
 <ion-content padding>
-  <h1 *ngIf='isValid'>{{produtor}}</h1>
+  <h1>{{produtor?.nome}}</h1>
+  <p>CPF: {{produtor?.cpf}}</p>
 </ion-content>
