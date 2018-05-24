@@ -9,11 +9,15 @@ import { ContactPage } from '../pages/contact/contact';
 import { HomePage } from '../pages/home/home';
 import { TabsPage } from '../pages/tabs/tabs';
 import { ProdutorPage } from '../pages/produtor/produtor';
+import { PropriedadePage } from '../pages/propriedade/propriedade';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { QRScanner } from '@ionic-native/qr-scanner';
+
+import { GoogleMaps } from '@ionic-native/google-maps';
 import { ProdutorProvider } from '../providers/produtor/produtor';
+import { PropriedadeProvider } from '../providers/propriedade/propriedade';
 
 @NgModule({
   declarations: [
@@ -22,7 +26,8 @@ import { ProdutorProvider } from '../providers/produtor/produtor';
     ContactPage,
     HomePage,
     TabsPage,
-    ProdutorPage
+    ProdutorPage,
+    PropriedadePage
   ],
   imports: [
     BrowserModule,
@@ -36,14 +41,17 @@ import { ProdutorProvider } from '../providers/produtor/produtor';
     ContactPage,
     HomePage,
     TabsPage,
-    ProdutorPage
+    ProdutorPage,
+    PropriedadePage
   ],
   providers: [
     StatusBar,
     SplashScreen,
     QRScanner,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    ProdutorProvider
+    ProdutorProvider,
+    PropriedadeProvider,
+    GoogleMaps,
   ]
 })
 export class AppModule {}

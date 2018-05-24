@@ -4,15 +4,16 @@ import { Observable } from 'rxjs/observable';
 import { constants } from '../../app/constants';
 
 @Injectable()
-export class ProdutorProvider {
+export class PropriedadeProvider {
 
   constructor(public http: HttpClient) {
-    console.log('Hello ProdutorProvider Provider');
+    console.log('Hello PropriedadeProvider Provider');
   }
-  
-  produtorById(id: number): Observable<any> {
-    let url = `${constants.API_ENDPOINT}/produtores/${id}`;
+
+  propriedadeById(id: number): Observable<any> {
+    let url = `${constants.API_ENDPOINT}/propriedades/${id}`;
     console.log(url)
     return this.http.get<any>(url);
   }
+
 }

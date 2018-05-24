@@ -2,7 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { AlertController, Content } from 'ionic-angular';
 import { NavController } from 'ionic-angular';
 import { QRScanner } from '@ionic-native/qr-scanner';
-import { ProdutorPage } from '../produtor/produtor';
+import { PropriedadePage } from '../propriedade/propriedade';
 import { constants } from '../../app/constants';
 
 @Component({
@@ -34,9 +34,8 @@ export class AboutPage {
       if(data.substr(0, constants.QR_PATTERN.length) == constants.QR_PATTERN) {
         this.qrScanner.hide(); // hide camera preview
         scanSub.unsubscribe(); // stop scanning
-        // Navigates to ProdutorPage with data read from QR Scanner
-        console.log(data.split('=')[1])
-        this.navCtrl.push(ProdutorPage, {
+        // Navigates to ?Page with data read from QR Scanner
+        this.navCtrl.push(PropriedadePage, {
           qrData: data.split('=')[1]
         });
       } else {
