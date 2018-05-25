@@ -14,6 +14,7 @@ import { PropriedadePage } from '../pages/propriedade/propriedade';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { QRScanner } from '@ionic-native/qr-scanner';
+import { IonicImageViewerModule } from 'ionic-img-viewer';
 
 import { GoogleMaps } from '@ionic-native/google-maps';
 import { ProdutorProvider } from '../providers/produtor/produtor';
@@ -32,7 +33,8 @@ import { PropriedadeProvider } from '../providers/propriedade/propriedade';
   imports: [
     BrowserModule,
     HttpClientModule,
-    IonicModule.forRoot(MyApp)
+    IonicModule.forRoot(MyApp),
+    IonicImageViewerModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [

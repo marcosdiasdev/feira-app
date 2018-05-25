@@ -37,7 +37,8 @@ export class PropriedadePage {
       "latitude":-11.6058409999999998518660504487343132495880126953125,
       "longitude":-47.01233500000000020691004465334117412567138671875,
       "created_at":"2018-05-23 14:07:36",
-      "updated_at":null
+      "updated_at":null,
+      "fotos": ['img1.jpg', 'img2.jpg', 'img3.jpg', 'img4.jpg']
     }
     this.loadMap(this.propriedade.latitude, this.propriedade.longitude);
     this.addMarker(this.propriedade.nome, this.propriedade.latitude, this.propriedade.longitude);

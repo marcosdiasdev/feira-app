@@ -10,8 +10,18 @@ page-propriedade {
         overflow-y: scroll;
         color: map-get($colors, dark);
     }
-    .image-container {
-        min-height: 100px;
-        background-size: cover;
+    /* ion-slides */
+    ion-slide.swiper-slide {
+        
+    }
+    .slide-zoom {
+        left: 0;
+        margin-left: 0;
     }    
+    .image-slider {
+        
+    }
+    .thumb-img {
+        padding: 5px;
+    }       
 }
