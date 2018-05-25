@@ -27,8 +27,18 @@ export class PropriedadePage {
               public navParams: NavParams) {
   }
 
-  ionViewDidLoad() {
-    this.propriedade = {"id":1,"produtor_id":1,"nome":"Fazenda Cana\u00e3","descricao":"A Fazenda Cana\u00e3 foi fundada em meados de 2001 no munic\u00edpio de Porto Alegre-TO e \u00e9 l\u00edder na produ\u00e7\u00e3o de abacaxi na regi\u00e3o do sudeste tocantinense.","latitude":-11.6058409999999998518660504487343132495880126953125,"longitude":-47.01233500000000020691004465334117412567138671875,"created_at":"2018-05-23 14:07:36","updated_at":null}
+  ionViewWillEnter() {
+
+    this.propriedade = {
+      "id":1,
+      "produtor_id":1,
+      "nome":"Fazenda Cana\u00e3",
+      "descricao":"A Fazenda Cana\u00e3 foi fundada em meados de 2001 no munic\u00edpio de Porto Alegre-TO e \u00e9 l\u00edder na produ\u00e7\u00e3o de abacaxi na regi\u00e3o do sudeste tocantinense.",
+      "latitude":-11.6058409999999998518660504487343132495880126953125,
+      "longitude":-47.01233500000000020691004465334117412567138671875,
+      "created_at":"2018-05-23 14:07:36",
+      "updated_at":null
+    }
     this.loadMap(this.propriedade.latitude, this.propriedade.longitude);
     this.addMarker(this.propriedade.nome, this.propriedade.latitude, this.propriedade.longitude);
     /*
@@ -47,7 +57,11 @@ export class PropriedadePage {
       */
   }
 
-  loadMap(latitude, longitude) {  
+  ionViewWillLeave() {
+
+  }
+
+  loadMap(latitude, longitude) {
     let mapOptions: GoogleMapOptions = {
       camera: {
         target: {

@@ -1,15 +1,17 @@
 page-propriedade {
     #map-canvas {
         min-width: 100px; 
-        min-height: 300px;
+        height: 30%;
+        min-height: 100px;
         width: 100%;
-        position: fixed;
-        left: 0;
-        top: 0;
     }
     #content {
-        background-color:tomato;
-        position: relative;
-        top: 230px;
+        height: 70%;
+        overflow-y: scroll;
+        color: map-get($colors, dark);
     }
+    .image-container {
+        min-height: 100px;
+        background-size: cover;
+    }    
 }
