@@ -6,14 +6,16 @@ import { constants } from '../../app/constants';
 @Injectable()
 export class PropriedadeProvider {
 
-  constructor(public http: HttpClient) {
-    console.log('Hello PropriedadeProvider Provider');
-  }
+  constructor(public http: HttpClient) {  }
 
   propriedadeById(id: number): Observable<any> {
     let url = `${constants.API_ENDPOINT}/propriedades/${id}`;
-    console.log(url)
     return this.http.get<any>(url);
   }
 
+  propriedadeByIdWithRelations(id: number): Observable<any> {
+    let url = `${constants.API_ENDPOINT}/propriedades/${id}?with=produtor+imagens`;
+    console.log(url);
+    return this.http.get<any>(url);
+  }  
 }

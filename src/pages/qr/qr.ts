@@ -7,10 +7,10 @@ import { constants } from '../../app/constants';
 
 @Component({
   selector: 'page-about',
-  templateUrl: 'about.html'
+  templateUrl: 'qr.html'
 })
 
-export class AboutPage {
+export class QRPage {
 
   @ViewChild(Content) content;
 

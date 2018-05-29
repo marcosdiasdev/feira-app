@@ -1,13 +1,17 @@
 page-propriedade {
+    h2 {
+        font-size: 1.2em;
+    }
     #map-canvas {
         min-width: 100px; 
         height: 30%;
         min-height: 100px;
         width: 100%;
     }
-    #content {
+    #scroll-area {
         height: 70%;
-        overflow-y: scroll;
+    }
+    #content {
         color: map-get($colors, dark);
     }
     /* ion-slides */

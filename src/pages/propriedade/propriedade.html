@@ -4,25 +4,51 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content padding class="bgTransparent">
+<ion-content no-padding class="bgTransparent">
   <section id="map-canvas"></section>
-  <ion-grid id="content">
-    <ion-row align-items-center>
-      <ion-col>
-        <h1 text-center margin-top>{{propriedade?.nome}}</h1>
-      </ion-col>
-    </ion-row>
-    <ion-row>
-      <ion-col>
-        <p text-justify>{{propriedade?.descricao}}</p>
-      </ion-col>
-    </ion-row>      
-    <ion-row *ngIf="propriedade?.fotos">
-      <ion-slides class="image-slider" loop="true" slidesPerView="2">
-        <ion-slide *ngFor="let img of propriedade?.fotos">
-          <img src="assets/imgs/{{img}}" class="thumb-img" imageViewer/>
-        </ion-slide>
-      </ion-slides>      
-    </ion-row>         
-  </ion-grid>
+  <ion-scroll id="scroll-area" scrollY="true">
+    <ion-grid id="content" padding-horizontal>
+      <ion-row align-items-center>
+        <ion-col>
+          <h1 text-center margin-top>{{propriedade?.nome}}</h1>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <p text-justify>{{propriedade?.descricao}}</p>
+        </ion-col>
+      </ion-row>      
+      <ion-item-divider></ion-item-divider>
+
+      <!-- Fotos -->
+      <ion-row>
+        <ion-col>
+            <h2>Fotos da propriedade</h2>
+        </ion-col>
+      </ion-row>      
+      <ion-row *ngIf="propriedade?.imagens">
+        <ion-slides class="image-slider" loop="true" slidesPerView="2">
+          <ion-slide *ngFor="let img of propriedade?.imagens">
+            <img src="{{storage}}/{{img.url}}" class="thumb-img" imageViewer/>
+          </ion-slide>
+        </ion-slides>      
+      </ion-row>
+      <ion-item-divider></ion-item-divider>
+      <!-- Fotos -->
+
+      <!-- Responsável -->
+      <ion-row align-items-center>
+        <ion-col>
+          <h2 margin-top>Responsável</h2>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <p text-justify>{{propriedade?.produtor?.nome}}</p>
+        </ion-col>
+      </ion-row>
+      <!-- Responsável -->
+      
+    </ion-grid>
+  </ion-scroll>
 </ion-content>

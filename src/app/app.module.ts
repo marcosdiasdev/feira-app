@@ -4,7 +4,7 @@ import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
 
-import { AboutPage } from '../pages/about/about';
+import { QRPage } from '../pages/qr/qr';
 import { ContactPage } from '../pages/contact/contact';
 import { HomePage } from '../pages/home/home';
 import { TabsPage } from '../pages/tabs/tabs';
@@ -15,6 +15,7 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { QRScanner } from '@ionic-native/qr-scanner';
 import { IonicImageViewerModule } from 'ionic-img-viewer';
+import { ScreenOrientation } from '@ionic-native/screen-orientation';
 
 import { GoogleMaps } from '@ionic-native/google-maps';
 import { ProdutorProvider } from '../providers/produtor/produtor';
@@ -23,7 +24,7 @@ import { PropriedadeProvider } from '../providers/propriedade/propriedade';
 @NgModule({
   declarations: [
     MyApp,
-    AboutPage,
+    QRPage,
     ContactPage,
     HomePage,
     TabsPage,
@@ -39,7 +40,7 @@ import { PropriedadeProvider } from '../providers/propriedade/propriedade';
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    AboutPage,
+    QRPage,
     ContactPage,
     HomePage,
     TabsPage,
@@ -54,6 +55,7 @@ import { PropriedadeProvider } from '../providers/propriedade/propriedade';
     ProdutorProvider,
     PropriedadeProvider,
     GoogleMaps,
+    ScreenOrientation,
   ]
 })
 export class AppModule {}
