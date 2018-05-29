@@ -10,7 +10,7 @@ import { constants } from '../../app/constants';
 export class HomePage {
 
   searchQuery: string = '';
-  items: string[];
+  items: any[];
   title = constants.APP_NAME;
 
   constructor(public navCtrl: NavController,
@@ -20,16 +20,18 @@ export class HomePage {
   }
 
   ionViewDidLoad() {
-    this.platform.ready().then(()=>{
-      this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.PORTRAIT);
-    })
+    if(this.platform.is('cordova')) {
+      this.platform.ready().then(()=>{
+        this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.PORTRAIT);
+      })
+    }
   }
 
   initializeItems() {
     this.items = [
-      'Tomate Cereja',
-      'Batata Inglesa',
-      'Alface Americana'
+      {nome: 'Tomate Carmem', imagem: 'tomate.jpg', preco: 3.00, unidade: 'kg'},
+      {nome: 'Abacaxi Pérola', imagem: 'abacaxi.jpg', preco: 5.00, unidade: 'kg'},
+      {nome: 'Tomate Carmem', imagem: 'tomate.jpg', preco: 3.00, unidade: 'kg'},
     ];
   }
 

@@ -5,20 +5,21 @@
 </ion-header>
 
 <ion-content no-padding>
-    <ion-searchbar (ionInput)="getItems($event)" placeholder="O que deseja encontrar?"></ion-searchbar>
-    <div padding>
-      <ion-segment [(ngModel)]="pet">
-        <ion-segment-button value="ofertas">
-          Ofertas
-        </ion-segment-button>
-        <ion-segment-button value="propriedades">
-          Propriedades
-        </ion-segment-button>
-      </ion-segment>
-    </div>    
-    <ion-list>
-      <ion-item *ngFor="let item of items">
-        {{ item }}
-      </ion-item>
-    </ion-list>
+    <section id="filter-bar" no-padding>
+      <ion-searchbar (ionInput)="getItems($event)" placeholder="O que deseja encontrar?"></ion-searchbar>
+    </section>    
+      
+    <ion-card no-padding *ngFor="let item of items">
+      <section class="card-image" 
+        [ngStyle]="{ 'background-image': 'url(assets/imgs/' + item.imagem + ')'}"></section>
+      <ion-card-content>
+        <ion-card-title>
+          {{item.nome}}
+        </ion-card-title>
+        <p>
+          R$ {{item.preco.toFixed(2)}} / {{item.unidade}}
+        </p>
+      </ion-card-content>
+    </ion-card>
+
 </ion-content>
