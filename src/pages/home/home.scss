@@ -23,4 +23,8 @@ page-home {
         font-weight: bold;
         font-size: 1.8em;      
     }
+    .available-at {
+        color: map-get($colors, secondary-text);
+        font-weight: bold;
+    }
 }
