@@ -29,9 +29,9 @@ export class HomePage {
 
   initializeItems() {
     this.items = [
-      {nome: 'Tomate Carmem', imagem: 'tomate.jpg', preco: 3.00, unidade: 'kg'},
-      {nome: 'Abacaxi Pérola', imagem: 'abacaxi.jpg', preco: 5.00, unidade: 'kg'},
-      {nome: 'Tomate Carmem', imagem: 'tomate.jpg', preco: 3.00, unidade: 'kg'},
+      {nome: 'Tomate Carmem', imagem: 'tomate.jpg', preco: 3.00, unidade: 'kg', feira: 'Feira do Bela Vista'},
+      {nome: 'Alface Lisa', imagem: 'alface-lisa.jpg', preco: 2.00, unidade: 'und', feira: 'Feira da Rodoviária'},
+      {nome: 'Abacaxi Pérola', imagem: 'abacaxi.jpg', preco: 5.00, unidade: 'und', feira: 'Feira do Cavalcante'},
     ];
   }
 

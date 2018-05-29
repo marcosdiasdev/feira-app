@@ -11,15 +11,24 @@
       
     <ion-card no-padding *ngFor="let item of items">
       <section class="card-image" 
-        [ngStyle]="{ 'background-image': 'url(assets/imgs/' + item.imagem + ')'}"></section>
+        [ngStyle]="{ 'background-image': 'url(assets/imgs/' + item.imagem + ')'}">
+        <section>
+          <p>R$ {{item.preco.toFixed(2)}} / {{item.unidade}}</p>
+        </section>
+      </section>
       <ion-card-content>
-        <ion-card-title>
+        <ion-card-title class="card-title" no-margin>
           {{item.nome}}
         </ion-card-title>
-        <p>
-          R$ {{item.preco.toFixed(2)}} / {{item.unidade}}
-        </p>
-      </ion-card-content>
+        <ion-grid no-padding>
+          <ion-row>
+            <ion-col text-left>
+              <p>Disponível em {{item.feira}}</p>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-card-content>     
+
     </ion-card>
 
 </ion-content>
