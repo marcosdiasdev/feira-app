@@ -4,31 +4,52 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content no-padding>
+<ion-content no-padding class="bgLight">
     <section id="filter-bar" no-padding>
       <ion-searchbar (ionInput)="getItems($event)" placeholder="O que deseja encontrar?"></ion-searchbar>
     </section>    
-      
+    
+    <section *ngIf="items?.length < 1">
+      <!--
+      <img src="assets/imgs/">
+      -->
+      <p class="error-page-msg">Desculpe.</p>
+      <p class="error-page-msg">Não há ofertas ativas.</p>
+    </section>
+
     <ion-card no-padding *ngFor="let item of items">
-      <section class="card-image" 
-        [ngStyle]="{ 'background-image': 'url(assets/imgs/' + item.imagem + ')'}">
+      
+        <section class="card-image" 
+        [ngStyle]="{ 'background-image': 'url(assets/imgs/' + item?.imagem_url + ')'}"
+        (click)="goToOfertaPage(item?.id)">
+        
         <section>
-          <p>R$ {{item.preco.toFixed(2)}} / {{item.unidade}}</p>
+          <p>R$ {{item?.preco}} / {{item?.unidade_descricao}}</p>
         </section>
       </section>
-      <ion-card-content>
-        <ion-card-title class="card-title" no-margin>
-          {{item.nome}}
+      <ion-card-content class="card-content">
+        <ion-card-title class="card-title" no-margin (click)="goToOfertaPage(item?.id)">
+          {{item?.produto_nome}}
         </ion-card-title>
         <ion-grid no-padding>
           <ion-row>
             <ion-col text-left>
-              <p class="available-at">Disponível em {{item.feira}}</p>
+              <p class="available-at">
+                <span (click)="goToFeiraPage(item?.feira_id)">Disponível em {{item?.feira_nome}}</span>          
+              </p>
+              
+              <button ion-button icon-left clear no-margin no-padding 
+              class="like-button"
+              [@userLikes]="item.user_likes"
+              (click)="toggleLikeState(item)">
+                  <ion-icon name="thumbs-up"></ion-icon>
+                  <div>{{item?.likes}}</div>
+              </button>
+
             </ion-col>
           </ion-row>
         </ion-grid>
-      </ion-card-content>     
-
+      </ion-card-content>    
+      
     </ion-card>
-
 </ion-content>

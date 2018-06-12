@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { constants } from '../../app/constants';
-import { ProdutorProvider } from '../../providers/produtor/produtor';
+import { ProdutorProvider } from '../../providers/produtor/produtor.provider';
 
 @Component({
   selector: 'page-produtor',

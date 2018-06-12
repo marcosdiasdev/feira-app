@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { constants } from '../../app/constants';
-import { PropriedadeProvider } from '../../providers/propriedade/propriedade';
+import { PropriedadeProvider } from '../../providers/propriedade/propriedade.provider';
 import {
   GoogleMaps,
   GoogleMap,

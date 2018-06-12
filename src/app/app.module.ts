@@ -1,5 +1,6 @@
 import { NgModule, ErrorHandler } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
@@ -8,6 +9,8 @@ import { QRPage } from '../pages/qr/qr';
 import { ContactPage } from '../pages/contact/contact';
 import { HomePage } from '../pages/home/home';
 import { TabsPage } from '../pages/tabs/tabs';
+import { FeiraPage } from '../pages/feira/feira';
+import { OfertaPage } from '../pages/oferta/oferta';
 import { ProdutorPage } from '../pages/produtor/produtor';
 import { PropriedadePage } from '../pages/propriedade/propriedade';
 
@@ -18,8 +21,11 @@ import { IonicImageViewerModule } from 'ionic-img-viewer';
 import { ScreenOrientation } from '@ionic-native/screen-orientation';
 
 import { GoogleMaps } from '@ionic-native/google-maps';
-import { ProdutorProvider } from '../providers/produtor/produtor';
-import { PropriedadeProvider } from '../providers/propriedade/propriedade';
+import { ProdutorProvider } from '../providers/produtor/produtor.provider';
+import { PropriedadeProvider } from '../providers/propriedade/propriedade.provider';
+import { FeiraProvider } from '../providers/feira/feira.provider';
+import { OfertaProvider } from '../providers/oferta/oferta.provider';
+import { LikeProvider } from '../providers/like/like.provider';
 
 @NgModule({
   declarations: [
@@ -28,11 +34,14 @@ import { PropriedadeProvider } from '../providers/propriedade/propriedade';
     ContactPage,
     HomePage,
     TabsPage,
+    FeiraPage,
+    OfertaPage,
     ProdutorPage,
     PropriedadePage
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     HttpClientModule,
     IonicModule.forRoot(MyApp),
     IonicImageViewerModule
@@ -44,6 +53,8 @@ import { PropriedadeProvider } from '../providers/propriedade/propriedade';
     ContactPage,
     HomePage,
     TabsPage,
+    FeiraPage,
+    OfertaPage,
     ProdutorPage,
     PropriedadePage
   ],
@@ -56,6 +67,9 @@ import { PropriedadeProvider } from '../providers/propriedade/propriedade';
     PropriedadeProvider,
     GoogleMaps,
     ScreenOrientation,
+    FeiraProvider,
+    OfertaProvider,
+    LikeProvider,
   ]
 })
 export class AppModule {}

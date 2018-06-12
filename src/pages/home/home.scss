@@ -26,5 +26,16 @@ page-home {
     .available-at {
         color: map-get($colors, secondary-text);
         font-weight: bold;
+        position: relative;
+    }
+    .like-button {
+        position: absolute;
+        right: 0;
+        bottom: 0;
+    }
+    .error-page-msg {
+        text-align: center;
+        font-size: 2em;
+        font-weight: bold;
     }
 }
