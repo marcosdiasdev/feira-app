@@ -40,7 +40,7 @@
               
               <button ion-button icon-left clear no-margin no-padding 
               class="like-button"
-              [@userLikes]="item.user_likes"
+              [@userLiked]="item.liked"
               (click)="toggleLikeState(item)">
                   <ion-icon name="thumbs-up"></ion-icon>
                   <div>{{item?.likes}}</div>

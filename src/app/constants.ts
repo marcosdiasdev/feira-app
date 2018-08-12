@@ -21,3 +21,12 @@ export const constants = {
 
     QR_PATTERN : 'feira-app@',
 }
+
+export const firebaseConfig = {
+    apiKey: "AIzaSyAOkWcKOR_kGF3YPb-18YOuopeDCMovA1Y",
+    authDomain: "feira-app-b74cb.firebaseapp.com",
+    databaseURL: "https://feira-app-b74cb.firebaseio.com",
+    projectId: "feira-app-b74cb",
+    storageBucket: "feira-app-b74cb.appspot.com",
+    messagingSenderId: "992440832359"
+}

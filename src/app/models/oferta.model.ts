@@ -11,7 +11,7 @@ export class Oferta implements Deserializable {
   imagem_url : string
   unidade_descricao : string
   likes : number
-  user_likes : string = 'no'
+  liked : string
 
   constructor() { }
 
@@ -21,11 +21,11 @@ export class Oferta implements Deserializable {
   }
 
   toggleLikeState() {
-    if(this.user_likes == 'no') {
-      this.user_likes = 'yes'
+    if(this.liked == 'no') {
+      this.liked = 'yes'
       this.likes++
     } else {
-      this.user_likes = 'no'
+      this.liked = 'no'
       this.likes--
     }
   }

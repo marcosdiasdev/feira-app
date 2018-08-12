@@ -14,7 +14,7 @@ import { Like } from '../../app/models/like.model'
   selector: 'page-home',
   templateUrl: 'home.html',
   animations: [
-    trigger('userLikes', [
+    trigger('userLiked', [
       state('yes', style({
         color: '#FF5722',
         transform: 'scale(1.1)'
@@ -30,7 +30,6 @@ import { Like } from '../../app/models/like.model'
 })
 export class HomePage {
 
-  searchQuery: string = '';
   items: Oferta[];
   items_backup: Oferta[];
   title = constants.APP_NAME;
@@ -43,9 +42,9 @@ export class HomePage {
     
     this.ofertaProvider.ofertas()
       .subscribe((ofertas: Oferta[]) => {
+        console.log(ofertas)
         this.items = ofertas
         this.items_backup = this.items
-        console.log(this.items)
       },
       error => {
         console.log('Unable to get data: '  + error)
@@ -56,11 +55,11 @@ export class HomePage {
     
     let like = new Like();
     like.app_user_id = 1
-    like.oferta_id = 1
+    like.oferta_id = oferta.id
     
     oferta.toggleLikeState()
 
-    if(oferta.user_likes == 'no') {
+    if(oferta.liked == 'no') {
       this.likeProvider.removeLike(like)
         .subscribe(data => {
           console.log(data)

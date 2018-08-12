@@ -19,7 +19,8 @@ export class OfertaProvider {
   }
  
   ofertas(): Observable<Oferta[]> {
-    let url = `${constants.API_ENDPOINT}/ofertas?weeks=1`;
+    //let url = `${constants.API_ENDPOINT}/ofertas?weeks=1`;
+    let url = `${constants.API_ENDPOINT}/ofertas`;
     return this.http.get<Oferta[]>(url)
       .map((ofertas : Oferta[]) => {
         return ofertas.map((oferta: Oferta) => new Oferta().deserialize(oferta))

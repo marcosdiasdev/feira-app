@@ -5,14 +5,15 @@ import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
 
-import { QRPage } from '../pages/qr/qr';
 import { ContactPage } from '../pages/contact/contact';
-import { HomePage } from '../pages/home/home';
-import { TabsPage } from '../pages/tabs/tabs';
 import { FeiraPage } from '../pages/feira/feira';
+import { HomePage } from '../pages/home/home';
+import { LoginPage } from '../pages/login/login';
 import { OfertaPage } from '../pages/oferta/oferta';
 import { ProdutorPage } from '../pages/produtor/produtor';
 import { PropriedadePage } from '../pages/propriedade/propriedade';
+import { QRPage } from '../pages/qr/qr';
+import { TabsPage } from '../pages/tabs/tabs';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -27,6 +28,11 @@ import { FeiraProvider } from '../providers/feira/feira.provider';
 import { OfertaProvider } from '../providers/oferta/oferta.provider';
 import { LikeProvider } from '../providers/like/like.provider';
 
+import { AngularFireModule } from 'angularfire2';
+import { AngularFireAuth } from 'angularfire2/auth';
+import { firebaseConfig } from './constants';
+import { GooglePlus } from '@ionic-native/google-plus';
+
 @NgModule({
   declarations: [
     MyApp,
@@ -37,14 +43,16 @@ import { LikeProvider } from '../providers/like/like.provider';
     FeiraPage,
     OfertaPage,
     ProdutorPage,
-    PropriedadePage
+    PropriedadePage,
+    LoginPage
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     HttpClientModule,
     IonicModule.forRoot(MyApp),
-    IonicImageViewerModule
+    IonicImageViewerModule,
+    AngularFireModule.initializeApp(firebaseConfig)
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -56,7 +64,8 @@ import { LikeProvider } from '../providers/like/like.provider';
     FeiraPage,
     OfertaPage,
     ProdutorPage,
-    PropriedadePage
+    PropriedadePage,
+    LoginPage
   ],
   providers: [
     StatusBar,
@@ -70,6 +79,8 @@ import { LikeProvider } from '../providers/like/like.provider';
     FeiraProvider,
     OfertaProvider,
     LikeProvider,
+    AngularFireAuth,
+    GooglePlus
   ]
 })
 export class AppModule {}
