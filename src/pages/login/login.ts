@@ -7,6 +7,7 @@ import { Observable } from 'rxjs/Observable';
 
 import { GooglePlus } from '@ionic-native/google-plus';
 import { Platform } from 'ionic-angular';
+import { firebaseConfig } from '../../app/constants';
 
 /**
  * Generated class for the LoginPage page.
@@ -40,7 +41,7 @@ export class LoginPage {
     try {
   
       const gplusUser = await this.gplus.login({
-        'webClientId': '992440832359-5tdlr8k2v1ts7t6brrogsbin88rh9c9p.apps.googleusercontent.com',
+        'webClientId': firebaseConfig.webClientId,
         'offline': true,
         'scopes': 'profile email'
       })

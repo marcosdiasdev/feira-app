@@ -28,5 +28,6 @@ export const firebaseConfig = {
     databaseURL: "https://feira-app-b74cb.firebaseio.com",
     projectId: "feira-app-b74cb",
     storageBucket: "feira-app-b74cb.appspot.com",
-    messagingSenderId: "992440832359"
+    messagingSenderId: "992440832359",
+    webClientId: "992440832359-5tdlr8k2v1ts7t6brrogsbin88rh9c9p.apps.googleusercontent.com",
 }

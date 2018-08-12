@@ -25,6 +25,9 @@
 
     <div *ngIf="user.uid">
       Você já entrou: {{ user.uid }}
+      <button ion-button (tap)="signOut()">
+        Sair
+      </button>
     </div>
 
   </div>
