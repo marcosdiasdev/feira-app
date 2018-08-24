@@ -14,6 +14,7 @@ import { ProdutorPage } from '../pages/produtor/produtor';
 import { PropriedadePage } from '../pages/propriedade/propriedade';
 import { QRPage } from '../pages/qr/qr';
 import { TabsPage } from '../pages/tabs/tabs';
+import { FeirasPage } from '../pages/feiras/feiras';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -27,6 +28,7 @@ import { PropriedadeProvider } from '../providers/propriedade/propriedade.provid
 import { FeiraProvider } from '../providers/feira/feira.provider';
 import { OfertaProvider } from '../providers/oferta/oferta.provider';
 import { LikeProvider } from '../providers/like/like.provider';
+import { AuthService } from '../providers/auth/auth';
 
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireAuth } from 'angularfire2/auth';
@@ -44,7 +46,8 @@ import { GooglePlus } from '@ionic-native/google-plus';
     OfertaPage,
     ProdutorPage,
     PropriedadePage,
-    LoginPage
+    LoginPage,
+    FeirasPage
   ],
   imports: [
     BrowserModule,
@@ -65,7 +68,8 @@ import { GooglePlus } from '@ionic-native/google-plus';
     OfertaPage,
     ProdutorPage,
     PropriedadePage,
-    LoginPage
+    LoginPage,
+    FeirasPage
   ],
   providers: [
     StatusBar,
@@ -80,7 +84,8 @@ import { GooglePlus } from '@ionic-native/google-plus';
     OfertaProvider,
     LikeProvider,
     AngularFireAuth,
-    GooglePlus
+    GooglePlus,
+    AuthService
   ]
 })
 export class AppModule {}

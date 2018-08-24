@@ -1,34 +1,30 @@
-<!--
-  Generated template for the LoginPage page.
+<ion-content no-padding>
 
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
-<ion-header>
+  <ion-slides pager="false" autoplay="2000" loop="true" speed="1500" effect="fade">
+    <ion-slide class="slide-background swiper-no-swiping" *ngFor="let background of backgrounds" [ngStyle]="{'background-image': 'url(' + background +')'}">
+    </ion-slide>
+  </ion-slides>
+  <div class="login-container">
+    <!--
+      <img class="logo" src="assets/img/logo/logo-canon.png" />
+    -->
+    <h1>Minha Feira</h1>
 
-  <ion-navbar>
-    <ion-title>LoginPage</ion-title>
-  </ion-navbar>
-
-</ion-header>
-
-
-<ion-content padding>
-  <!-- Generated template for the GoogleLoginComponent component -->
-  <div *ngIf="(user | async) || {} as user">
-    
-    <button ion-button 
-      *ngIf="!user.uid"
-      (tap)="googleLogin()">
-      Entrar com uma conta Google
-    </button>
-
-    <div *ngIf="user.uid">
-      Você já entrou: {{ user.uid }}
-      <button ion-button (tap)="signOut()">
-        Sair
+    <div *ngIf="(user | async) || {} as user">
+      <button ion-button 
+        *ngIf="!user.uid"
+        (tap)="signInWithGoogle()">
+        <ion-icon name="logo-google"></ion-icon> Entrar
       </button>
+  
+      <div *ngIf="user.uid">
+        Você já entrou: {{ user.uid }}
+        <button ion-button (tap)="signOut()">
+          Sair
+        </button>
+      </div>
     </div>
 
   </div>
+
 </ion-content>

@@ -4,79 +4,44 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import * as firebase from 'firebase/app';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { Observable } from 'rxjs/Observable';
-
-import { GooglePlus } from '@ionic-native/google-plus';
-import { Platform } from 'ionic-angular';
-import { firebaseConfig } from '../../app/constants';
-
-/**
- * Generated class for the LoginPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+import { AuthService } from '../../providers/auth/auth';
 
 @IonicPage()
 @Component({
   selector: 'page-login',
   templateUrl: 'login.html',
 })
+
 export class LoginPage {
-
-  constructor(public navCtrl: NavController, 
-              public navParams: NavParams,
-              private afAuth: AngularFireAuth, 
-              private gplus: GooglePlus,
-              private platform: Platform) {
-    this.user = this.afAuth.authState;
-  }
-
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad LoginPage');
-  }
+  
+  backgrounds = [
+    'assets/imgs/backgrounds/background-1.jpg',
+    'assets/imgs/backgrounds/background-2.jpg',
+    'assets/imgs/backgrounds/background-3.jpg',
+    'assets/imgs/backgrounds/background-4.jpg'
+  ];
 
   user: Observable<firebase.User>;
 
-  async nativeGoogleLogin(): Promise<firebase.User> {
-    try {
-  
-      const gplusUser = await this.gplus.login({
-        'webClientId': firebaseConfig.webClientId,
-        'offline': true,
-        'scopes': 'profile email'
-      })
-      
-      return await this.afAuth.auth.signInWithCredential(
-        firebase.auth.GoogleAuthProvider.credential(gplusUser.idToken)
-      )
+  constructor(public navCtrl: NavController, 
+              public navParams: NavParams,
+              private afAuth: AngularFireAuth,
+              private authService: AuthService) {
 
-      
-  
-    } catch(err) {
-      console.log(err)
-    }
+    this.user = this.afAuth.authState;
+
   }
 
-  async webGoogleLogin(): Promise<void> {
-    try {
-      const provider = new firebase.auth.GoogleAuthProvider();
-      const credential = await this.afAuth.auth.signInWithPopup(provider);
-  
-    } catch(err) {
-      console.log(err)
-    }
+  ionViewDidLoad() {
+    console.log(this.user)
   }
 
-  googleLogin() {
-    if (this.platform.is('cordova')) {
-      this.nativeGoogleLogin();
-    } else {
-      this.webGoogleLogin();
-    }
+  signInWithGoogle() {
+    this.authService.googleLogin();
   }
-  
+
   signOut() {
-    this.afAuth.auth.signOut();
-  }  
+    this.authService.signOut();
+  }
 
 }
