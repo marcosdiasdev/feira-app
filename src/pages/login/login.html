@@ -11,17 +11,14 @@
     <h1>Minha Feira</h1>
 
     <div *ngIf="(user | async) || {} as user">
-      <button ion-button 
+      <button ion-button full
         *ngIf="!user.uid"
-        (tap)="signInWithGoogle()">
+        (click)="signInWithGoogle()">
         <ion-icon name="logo-google"></ion-icon> Entrar
       </button>
-  
+
       <div *ngIf="user.uid">
-        Você já entrou: {{ user.uid }}
-        <button ion-button (tap)="signOut()">
-          Sair
-        </button>
+        <p>Olá, {{ user.displayName }}!</p>
       </div>
     </div>
 

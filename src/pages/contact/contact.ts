@@ -1,5 +1,9 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import {App} from 'ionic-angular';
+import {AuthProvider} from "../../providers/auth/auth.provider";
+import {Observable} from "rxjs";
+import * as firebase from "firebase";
+import {LoginPage} from "../login/login";
 
 @Component({
   selector: 'page-contact',
@@ -7,8 +11,20 @@ import { NavController } from 'ionic-angular';
 })
 export class ContactPage {
 
-  constructor(public navCtrl: NavController) {
+  user : Observable<firebase.User>;
 
+  constructor(public app: App,
+              private authProvider: AuthProvider) {
+    this.user = this.authProvider.currentUserObservable;
   }
 
+  ionViewDidEnter() {
+    this.user.subscribe(user => console.log(user));
+  }
+
+  signOut() {
+    this.authProvider.signOut().then(() => {
+      this.app.getRootNav().setRoot(LoginPage);
+    });
+  }
 }

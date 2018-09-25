@@ -2,11 +2,10 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
 import * as firebase from 'firebase/app';
-import { AngularFireAuth } from 'angularfire2/auth';
 import { Observable } from 'rxjs/Observable';
-import { AuthService } from '../../providers/auth/auth';
+import { AuthProvider } from '../../providers/auth/auth.provider';
+import { TabsPage } from "../tabs/tabs";
 
-@IonicPage()
 @Component({
   selector: 'page-login',
   templateUrl: 'login.html',
@@ -15,33 +14,56 @@ import { AuthService } from '../../providers/auth/auth';
 export class LoginPage {
   
   backgrounds = [
-    'assets/imgs/backgrounds/background-1.jpg',
     'assets/imgs/backgrounds/background-2.jpg',
-    'assets/imgs/backgrounds/background-3.jpg',
-    'assets/imgs/backgrounds/background-4.jpg'
+    'assets/imgs/backgrounds/background-2.jpg',
+    'assets/imgs/backgrounds/background-2.jpg',
+    'assets/imgs/backgrounds/background-2.jpg'
   ];
 
-  user: Observable<firebase.User>;
+  user : Observable<firebase.User>;
 
   constructor(public navCtrl: NavController, 
               public navParams: NavParams,
-              private afAuth: AngularFireAuth,
-              private authService: AuthService) {
-
-    this.user = this.afAuth.authState;
-
+              private authProvider: AuthProvider) {
+    this.user = this.authProvider.currentUserObservable;
   }
 
   ionViewDidLoad() {
-    console.log(this.user)
+
+  }
+
+  ionViewWillEnter() {
+
+  }
+
+  ionViewDidEnter() {
+    this.user.subscribe(user => {
+      if(user) {
+        this.authProvider.apiLogin().then(() => this.goToHomePage());
+      }
+    });
   }
 
   signInWithGoogle() {
-    this.authService.googleLogin();
+    this.authProvider.googleLogin().then(() => {
+      this.authProvider.apiLogin().then(() => {
+
+        console.log(this.authProvider.currentUser);
+
+        if(this.authProvider.authenticated) {
+          this.goToHomePage();
+        }
+      });
+    }, error => {
+      // Put a toast here
+    });
   }
 
   signOut() {
-    this.authService.signOut();
+    this.authProvider.signOut();
   }
 
+  goToHomePage() {
+    this.navCtrl.push(TabsPage);
+  }
 }

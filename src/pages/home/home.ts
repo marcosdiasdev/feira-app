@@ -9,6 +9,7 @@ import { OfertaProvider } from '../../providers/oferta/oferta.provider';
 import { trigger, state, style, animate, transition } from '@angular/animations';
 import { LikeProvider } from '../../providers/like/like.provider';
 import { Like } from '../../app/models/like.model'
+import {AuthProvider} from "../../providers/auth/auth.provider";
 
 @Component({
   selector: 'page-home',
@@ -38,42 +39,44 @@ export class HomePage {
               private screenOrientation: ScreenOrientation,
               private platform: Platform,
               private ofertaProvider: OfertaProvider,
-              private likeProvider: LikeProvider) {
+              private likeProvider: LikeProvider,
+              private authProvider: AuthProvider) {
     
     this.ofertaProvider.ofertas()
       .subscribe((ofertas: Oferta[]) => {
-        console.log(ofertas)
-        this.items = ofertas
-        this.items_backup = this.items
+        this.items = ofertas;
+        this.items_backup = this.items;
       },
       error => {
-        console.log('Unable to get data: '  + error)
+        console.error('Unable to get data: '  + error);
       });    
+  }
+
+  ionViewCanEnter() {
+    return this.authProvider.authenticated;
   }
 
   toggleLikeState(oferta : Oferta) {
     
     let like = new Like();
-    like.app_user_id = 1
-    like.oferta_id = oferta.id
+    like.app_user_id = 1;
+    like.oferta_id = oferta.id;
     
-    oferta.toggleLikeState()
+    oferta.toggleLikeState();
 
     if(oferta.liked == 'no') {
       this.likeProvider.removeLike(like)
         .subscribe(data => {
-          console.log(data)
+          console.log(data);
         }, error => {
-          console.log('Unable to delete data: ')
-          console.log(error)
+          console.error(error);
         });    
     } else {
       this.likeProvider.addLike(like)
       .subscribe(data => {
         console.log(data)
       }, error => {
-        console.log('Unable to post data: ')
-        console.log(error)
+        console.error(error);
       });  
     }
   }
@@ -97,7 +100,7 @@ export class HomePage {
   getItems(ev: any) {
     this.items = this.items_backup;
     let val = ev.target.value;
-    if (val && val.trim() != '') {
+    if (val && val.trim() != '' && this.items) {
       this.items = this.items.filter((item) => {
         return (item.produto_nome.toLowerCase().indexOf(val.toLowerCase()) > -1);
       })

@@ -28,7 +28,7 @@ import { PropriedadeProvider } from '../providers/propriedade/propriedade.provid
 import { FeiraProvider } from '../providers/feira/feira.provider';
 import { OfertaProvider } from '../providers/oferta/oferta.provider';
 import { LikeProvider } from '../providers/like/like.provider';
-import { AuthService } from '../providers/auth/auth';
+import { AuthProvider } from '../providers/auth/auth.provider';
 
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireAuth } from 'angularfire2/auth';
@@ -85,7 +85,7 @@ import { GooglePlus } from '@ionic-native/google-plus';
     LikeProvider,
     AngularFireAuth,
     GooglePlus,
-    AuthService
+    AuthProvider
   ]
 })
 export class AppModule {}
