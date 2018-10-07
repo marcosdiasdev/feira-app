@@ -1,69 +1,62 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { NavController } from 'ionic-angular';
 
 import * as firebase from 'firebase/app';
 import { Observable } from 'rxjs/Observable';
 import { AuthProvider } from '../../providers/auth/auth.provider';
 import { TabsPage } from "../tabs/tabs";
+import { User } from "../../app/models/user.model";
 
 @Component({
   selector: 'page-login',
   templateUrl: 'login.html',
 })
-
 export class LoginPage {
-  
-  backgrounds = [
-    'assets/imgs/backgrounds/background-2.jpg',
-    'assets/imgs/backgrounds/background-2.jpg',
-    'assets/imgs/backgrounds/background-2.jpg',
-    'assets/imgs/backgrounds/background-2.jpg'
-  ];
 
   user : Observable<firebase.User>;
 
-  constructor(public navCtrl: NavController, 
-              public navParams: NavParams,
+  constructor(public navCtrl: NavController,
               private authProvider: AuthProvider) {
     this.user = this.authProvider.currentUserObservable;
   }
 
-  ionViewDidLoad() {
-
-  }
-
-  ionViewWillEnter() {
-
-  }
-
-  ionViewDidEnter() {
-    this.user.subscribe(user => {
-      if(user) {
-        this.authProvider.apiLogin().then(() => this.goToHomePage());
-      }
-    });
+  goToHomePage() {
+    this.navCtrl.push(TabsPage);
   }
 
   signInWithGoogle() {
     this.authProvider.googleLogin().then(() => {
-      this.authProvider.apiLogin().then(() => {
+      this.authProvider.apiLogin().subscribe((userData: User) => {
+        if(userData.id > 0) {
 
-        console.log(this.authProvider.currentUser);
-
-        if(this.authProvider.authenticated) {
-          this.goToHomePage();
+          let user = new User().deserialize({
+            id: userData.id,
+            created_at: userData.created_at,
+            uid: this.authProvider.currentUser.uid,
+            displayName: this.authProvider.currentUser.displayName,
+            email: this.authProvider.currentUser.email,
+            photoURL: this.authProvider.currentUser.photoURL,
+          });
+          this.authProvider.createSession(user).then(() => this.goToHomePage());
         }
       });
-    }, error => {
-      // Put a toast here
     });
   }
 
-  signOut() {
-    this.authProvider.signOut();
-  }
-
-  goToHomePage() {
-    this.navCtrl.push(TabsPage);
+  signInWithGoogle2() {
+    this.authProvider.apiLogin().subscribe((userData: User) => {
+      if(userData.id > 0) {
+        let user = new User().deserialize({
+          id: userData.id,
+          created_at: userData.created_at,
+          uid: '',
+          displayName: 'Marcos Dias',
+          email: 'ti.marcosdias@gmail.com',
+          photoURL: '',
+        });
+        this.authProvider.createSession(user);
+        this.goToHomePage();
+      }
+    });
   }
 }

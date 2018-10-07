@@ -11,19 +11,19 @@ import {LoginPage} from "../login/login";
 })
 export class ContactPage {
 
-  user : Observable<firebase.User>;
+  user;
 
   constructor(public app: App,
               private authProvider: AuthProvider) {
-    this.user = this.authProvider.currentUserObservable;
+     this.authProvider.getSession().then(user => this.user = user);
   }
 
   ionViewDidEnter() {
-    this.user.subscribe(user => console.log(user));
+
   }
 
   signOut() {
-    this.authProvider.signOut().then(() => {
+    this.authProvider.removeSession().then(() => {
       this.app.getRootNav().setRoot(LoginPage);
     });
   }

@@ -14,7 +14,6 @@ export class OfertaProvider {
 
   ofertaById(id: number): Observable<Oferta> {
     let url = `${constants.API_ENDPOINT}/ofertas/${id}`;
-    console.log(url)
     return this.http.get<Oferta>(url);
   }
  
@@ -24,6 +23,6 @@ export class OfertaProvider {
     return this.http.get<Oferta[]>(url)
       .map((ofertas : Oferta[]) => {
         return ofertas.map((oferta: Oferta) => new Oferta().deserialize(oferta))
-      })
+      });
   }
 }

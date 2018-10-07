@@ -1,17 +1,16 @@
-import { Deserializable } from "../../app/shared/deserializable";
-import { OfertaProvider } from "../../providers/oferta/oferta.provider";
+import { Deserializable } from "../shared/deserializable";
 
 export class Oferta implements Deserializable {
 
-  id : number
-  preco : number
-  feira_id : number
-  feira_nome : string
-  produto_nome : string
-  imagem_url : string
-  unidade_descricao : string
-  likes : number
-  liked : string
+  id : number;
+  preco : number;
+  feira_id : number;
+  feira_nome : string;
+  produto_nome : string;
+  imagem_url : string;
+  unidade_descricao : string;
+  likes : number;
+  liked : string;
 
   constructor() { }
 
@@ -22,11 +21,11 @@ export class Oferta implements Deserializable {
 
   toggleLikeState() {
     if(this.liked == 'no') {
-      this.liked = 'yes'
-      this.likes++
+      this.liked = 'yes';
+      this.likes++;
     } else {
-      this.liked = 'no'
-      this.likes--
+      this.liked = 'no';
+      this.likes--;
     }
   }
 }

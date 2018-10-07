@@ -34,6 +34,8 @@ import { AngularFireModule } from 'angularfire2';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { firebaseConfig } from './constants';
 import { GooglePlus } from '@ionic-native/google-plus';
+import {IonicStorageModule} from "@ionic/storage";
+import { SessionProvider } from '../providers/session/session';
 
 @NgModule({
   declarations: [
@@ -55,7 +57,8 @@ import { GooglePlus } from '@ionic-native/google-plus';
     HttpClientModule,
     IonicModule.forRoot(MyApp),
     IonicImageViewerModule,
-    AngularFireModule.initializeApp(firebaseConfig)
+    AngularFireModule.initializeApp(firebaseConfig),
+    IonicStorageModule.forRoot()
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -85,7 +88,8 @@ import { GooglePlus } from '@ionic-native/google-plus';
     LikeProvider,
     AngularFireAuth,
     GooglePlus,
-    AuthProvider
+    AuthProvider,
+    SessionProvider
   ]
 })
 export class AppModule {}

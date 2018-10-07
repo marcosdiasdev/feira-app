@@ -1,18 +1,12 @@
 <ion-content no-padding>
+    <div class="login-container">
 
-  <ion-slides pager="false" autoplay="2000" loop="true" speed="1500" effect="fade">
-    <ion-slide class="slide-background swiper-no-swiping" *ngFor="let background of backgrounds" [ngStyle]="{'background-image': 'url(' + background +')'}">
-    </ion-slide>
-  </ion-slides>
-  <div class="login-container">
-    <!--
-      <img class="logo" src="assets/img/logo/logo-canon.png" />
-    -->
-    <h1>Minha Feira</h1>
+      <img class="logo" src="assets/imgs/logo.png"/>
+      <h1>Minha Feira</h1>
 
-    <div *ngIf="(user | async) || {} as user">
+      <div *ngIf="(user | async) || {} as user">
       <button ion-button full
-        *ngIf="!user.uid"
+        *ngIf="!user.id"
         (click)="signInWithGoogle()">
         <ion-icon name="logo-google"></ion-icon> Entrar
       </button>
@@ -21,7 +15,5 @@
         <p>Olá, {{ user.displayName }}!</p>
       </div>
     </div>
-
   </div>
-
 </ion-content>

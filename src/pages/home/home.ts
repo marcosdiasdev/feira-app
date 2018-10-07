@@ -10,6 +10,7 @@ import { trigger, state, style, animate, transition } from '@angular/animations'
 import { LikeProvider } from '../../providers/like/like.provider';
 import { Like } from '../../app/models/like.model'
 import {AuthProvider} from "../../providers/auth/auth.provider";
+import {User} from "../../app/models/user.model";
 
 @Component({
   selector: 'page-home',
@@ -34,16 +35,18 @@ export class HomePage {
   items: Oferta[];
   items_backup: Oferta[];
   title = constants.APP_NAME;
+  user: User;
 
   constructor(public navCtrl: NavController,
-              private screenOrientation: ScreenOrientation,
               private platform: Platform,
               private ofertaProvider: OfertaProvider,
               private likeProvider: LikeProvider,
               private authProvider: AuthProvider) {
-    
+
+    this.authProvider.getSession().then(session => this.user = session);
     this.ofertaProvider.ofertas()
       .subscribe((ofertas: Oferta[]) => {
+        console.log(ofertas);
         this.items = ofertas;
         this.items_backup = this.items;
       },
@@ -53,13 +56,11 @@ export class HomePage {
   }
 
   ionViewCanEnter() {
-    return this.authProvider.authenticated;
   }
 
   toggleLikeState(oferta : Oferta) {
-    
     let like = new Like();
-    like.app_user_id = 1;
+    like.app_user_id = this.user.id;
     like.oferta_id = oferta.id;
     
     oferta.toggleLikeState();
@@ -87,14 +88,6 @@ export class HomePage {
 
   goToFeiraPage(id : number) {
     this.navCtrl.push(FeiraPage, { id: id });
-  } 
-
-  ionViewDidLoad() {
-    if(this.platform.is('cordova')) {
-      this.platform.ready().then(()=>{
-        this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.PORTRAIT);
-      })
-    }
   }
 
   getItems(ev: any) {

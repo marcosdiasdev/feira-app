@@ -1,10 +1,9 @@
-import { Deserializable } from "../../app/shared/deserializable";
-import { LikeProvider } from "../../providers/like/like.provider";
+import {Deserializable} from "../shared/deserializable";
 
 export class Like implements Deserializable {
 
-  oferta_id : number
-  app_user_id : number
+  oferta_id : number;
+  app_user_id : number;
 
   constructor() { }
 

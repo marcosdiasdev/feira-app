@@ -97,4 +97,5 @@
     </plugin>
     <plugin name="cordova-plugin-googleplus" spec="^5.2.1" />
     <allow-navigation href="http://177.23.255.216:8100" />
+    <plugin name="cordova-sqlite-storage" spec="^2.4.0" />
 </widget>

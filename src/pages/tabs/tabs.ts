@@ -22,6 +22,5 @@ export class TabsPage {
   }
 
   ionViewCanEnter() {
-    this.authProvider.authenticated;
   }
 }

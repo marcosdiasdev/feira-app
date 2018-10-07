@@ -9,7 +9,7 @@
 <ion-content>
   <ion-list>
 
-    <ion-item *ngIf="(user | async) || {} as user">
+    <ion-item *ngIf="user || {} as user">
       <ion-avatar item-start>
         <img [src]="user.photoURL || null">
       </ion-avatar>

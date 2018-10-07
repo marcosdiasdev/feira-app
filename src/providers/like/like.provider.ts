@@ -11,20 +11,17 @@ export class LikeProvider {
   }
 
   getLikes(): Observable<Like[]> {
-    let url = `${constants.API_ENDPOINT}/likes`
-    console.log(url)
-    return this.http.get<Like[]>(url)    
+    let url = `${constants.API_ENDPOINT}/likes`;
+    return this.http.get<Like[]>(url);
   }
 
   addLike(like: Like) {
-    let url = `${constants.API_ENDPOINT}/likes`
-    console.log(url)
-    return this.http.post(url, like)
+    let url = `${constants.API_ENDPOINT}/likes`;
+    return this.http.post(url, like);
   }
 
   removeLike(like: Like) {
-    let url = `${constants.API_ENDPOINT}/likes/${like.oferta_id}/${like.app_user_id}`
-    console.log(url)
-    return this.http.delete(url)    
+    let url = `${constants.API_ENDPOINT}/likes/${like.oferta_id}/${like.app_user_id}`;
+    return this.http.delete(url);
   }
 }
