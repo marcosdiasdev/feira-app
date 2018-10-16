@@ -6,10 +6,10 @@ import * as firebase from "firebase";
 import {LoginPage} from "../login/login";
 
 @Component({
-  selector: 'page-contact',
-  templateUrl: 'contact.html'
+  selector: 'page-profile',
+  templateUrl: 'profile.html'
 })
-export class ContactPage {
+export class ProfilePage {
 
   user;
 
@@ -19,11 +19,11 @@ export class ContactPage {
   }
 
   ionViewDidEnter() {
-
+    this.authProvider.getSession().then(data => console.log(data.token));
   }
 
   signOut() {
-    this.authProvider.removeSession().then(() => {
+    this.authProvider.signOut().then(() => {
       this.app.getRootNav().setRoot(LoginPage);
     });
   }
