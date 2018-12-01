@@ -8,12 +8,20 @@ import { OfertaProvider } from '../../providers/oferta/oferta.provider';
 })
 export class OfertaPage {
 
-  public oferta = { id: null }
+  public oferta = { id: null };
   public JSON = JSON;
 
   constructor(public navCtrl: NavController, 
               public navParams: NavParams,
               private ofertaProvider: OfertaProvider) {
+    this.oferta.id = this.navParams.data.id;
+    this.ofertaProvider.ofertaById(this.oferta.id)
+      .subscribe(oferta => {
+          this.oferta = oferta;
+        },
+        error => {
+          console.log('Unable to get data.')
+        });
   }
 
   ionViewDidLoad() {
@@ -21,14 +29,7 @@ export class OfertaPage {
   }
 
   ionViewWillEnter() {    
-    this.oferta.id = this.navParams.data.id;
-    this.ofertaProvider.ofertaById(this.oferta.id)
-      .subscribe(oferta => {
-        this.oferta = oferta;
-      },
-      error => {
-        console.log('Unable to get data.')
-      });
+
   }    
 
 }

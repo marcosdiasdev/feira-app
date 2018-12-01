@@ -1,16 +1,8 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams } from 'ionic-angular';
 import { constants } from '../../app/constants';
 import { PropriedadeProvider } from '../../providers/propriedade/propriedade.provider';
-import {
-  GoogleMaps,
-  GoogleMap,
-  GoogleMapsEvent,
-  GoogleMapOptions,
-  CameraPosition,
-  MarkerOptions,
-  Marker
-} from '@ionic-native/google-maps';
+import { GoogleMaps, GoogleMap, GoogleMapOptions } from '@ionic-native/google-maps';
 
 @Component({
   selector: 'page-propriedade',
@@ -28,14 +20,11 @@ export class PropriedadePage {
               public navParams: NavParams) {
   }
 
-  ionViewWillEnter() {    
-    console.log('ionViewDidLoad PropriedadePage');
+  ionViewWillEnter() {
     this.propriedade_id = this.navParams.data.qrData;
     this.propriedadeProvider.propriedadeByIdWithRelations(this.propriedade_id)
-    //this.propriedadeProvider.propriedadeByIdWithRelations(1)
       .subscribe(propriedade => {
         this.propriedade = propriedade;
-        console.log('Got data: ' + JSON.stringify(this.propriedade));
         this.loadMap(this.propriedade.latitude, this.propriedade.longitude);
         this.addMarker(this.propriedade.nome, this.propriedade.latitude, this.propriedade.longitude);
       },

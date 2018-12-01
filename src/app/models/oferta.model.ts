@@ -10,7 +10,7 @@ export class Oferta implements Deserializable {
   imagem_url : string;
   unidade_descricao : string;
   likes : number;
-  liked : string;
+  liked : boolean;
 
   constructor() { }
 
@@ -20,11 +20,11 @@ export class Oferta implements Deserializable {
   }
 
   toggleLikeState() {
-    if(this.liked == 'no') {
-      this.liked = 'yes';
+    if(!this.liked) {
+      this.liked = true;
       this.likes++;
     } else {
-      this.liked = 'no';
+      this.liked = false;
       this.likes--;
     }
   }

@@ -1,12 +1,9 @@
 <ion-header>
-
   <ion-navbar>
     <ion-title>Oferta</ion-title>
   </ion-navbar>
-
 </ion-header>
 
-
-<ion-content padding>
+<ion-content padding (click)="check()">
   {{ oferta.produto?.nome }}
 </ion-content>

@@ -8,7 +8,6 @@ export class User extends Model implements Deserializable {
   displayName: string;
   email: string;
   photoURL: string;
-  created_at : string;
 
   deserialize(input: any) {
     Object.assign(this, input);

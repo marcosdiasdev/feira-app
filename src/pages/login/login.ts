@@ -1,11 +1,9 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
-
 import * as firebase from 'firebase/app';
 import { Observable } from 'rxjs/Observable';
 import { AuthProvider } from '../../providers/auth/auth.provider';
 import { TabsPage } from "../tabs/tabs";
-import { User } from "../../app/models/user.model";
 
 @Component({
   selector: 'page-login',
@@ -20,43 +18,44 @@ export class LoginPage {
     this.user = this.authProvider.currentUserObservable;
   }
 
+  ionViewDidEnter() {
+
+  }
+
   goToHomePage() {
     this.navCtrl.push(TabsPage);
   }
 
   signInWithGoogle() {
-    this.authProvider.googleLogin().then(() => {
-      this.authProvider.apiLogin().subscribe((userData: User) => {
-        if(userData.id > 0) {
-
-          let user = new User().deserialize({
-            id: userData.id,
-            created_at: userData.created_at,
-            uid: this.authProvider.currentUser.uid,
-            displayName: this.authProvider.currentUser.displayName,
-            email: this.authProvider.currentUser.email,
-            photoURL: this.authProvider.currentUser.photoURL,
-          });
-          this.authProvider.createSession(user).then(() => this.goToHomePage());
+    this.authProvider.googleLogin().then((data) => {
+      this.authProvider.apiSignIn().subscribe((token) => {
+        if(token.access_token) {
+          let sessionData = this.authProvider.makeSessionData(token.access_token);
+          this.authProvider.createSession(sessionData).then(() => this.goToHomePage());
         }
       });
-    });
+    }).catch(error => console.log(error));
   }
 
+  /*
   signInWithGoogle2() {
-    this.authProvider.apiLogin().subscribe((userData: User) => {
-      if(userData.id > 0) {
+    this.authProvider.apiSignIn().subscribe((token) => {
+
+      let tokenData = this.jwtHelper.decodeToken(token.access_token);
+      console.log(tokenData);
+
+      if(tokenData.id > 0) {
         let user = new User().deserialize({
-          id: userData.id,
-          created_at: userData.created_at,
-          uid: '',
+          id: tokenData.sub,
+          uid: 'rW1a5Pvl0LepxINYhckWFrRpGVm1',
           displayName: 'Marcos Dias',
-          email: 'ti.marcosdias@gmail.com',
+          email: 'marcos.conceicao@ifto.edu.br',
           photoURL: '',
         });
-        this.authProvider.createSession(user);
-        this.goToHomePage();
+        //this.authProvider.createSession(user);
+        //this.goToHomePage();
       }
     });
   }
+  */
 }

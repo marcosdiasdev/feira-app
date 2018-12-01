@@ -7,125 +7,152 @@ import UserCredential = firebase.auth.UserCredential;
 import {constants, firebaseConfig} from '../../app/constants';
 
 import { AngularFireAuth } from 'angularfire2/auth';
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpHeaders} from "@angular/common/http";
 import { GooglePlus } from '@ionic-native/google-plus';
 import { Platform } from 'ionic-angular';
-import {User as APIUser} from "../../app/models/user.model";
-import {SessionProvider} from "../session/session";
 
+import {SessionProvider} from "../session/session";
+import {JwtHelper} from "angular2-jwt";
 
 @Injectable()
 export class AuthProvider {
 
-	  private authState: firebase.User = null;
+  jwtHelper = new JwtHelper();
+  private authState: firebase.User = null;
+  userSession;
+  gplusUser;
 
-    constructor(public afAuth: AngularFireAuth,
-                private gplus: GooglePlus,
-                private platform: Platform,
-                private http: HttpClient,
-                private sessionProvider: SessionProvider) {
+  constructor(public afAuth: AngularFireAuth,
+              private gplus: GooglePlus,
+              private platform: Platform,
+              private http: HttpClient,
+              private sessionProvider: SessionProvider) {
 
-        afAuth.authState.subscribe(user => {
-            this.authState = user;
-        });
-    }
+    afAuth.authState.subscribe(user => {
+      this.authState = user;
+    });
+  }
 
-    /**
-     *
-     * @param user -
-     */
-    createSession(user: APIUser) {
-      return this.sessionProvider.create('user', user);
-    }
+  /**
+   *
+   * @param
+   */
+  createSession(sessionData) {
+    return this.sessionProvider.create('user', sessionData)
+      .then(sessionData => this.userSession = sessionData);
+  }
 
-    getSession(): Promise<any> {
-      return this.sessionProvider.get('user');
-    }
+  getSession(): Promise<any> {
+    return this.sessionProvider.get('user')
+      .then(sessionData => this.userSession = sessionData);
+  }
 
-    removeSession(): Promise<any> {
-      return this.sessionProvider.remove('user');
-    }
+  removeSession(): Promise<any> {
+    return this.sessionProvider.remove('user');
+  }
+
+  makeSessionData(token) {
+    let user_id = this.jwtHelper.decodeToken(token).sub;
+    return {
+      token: token,
+      id: user_id,
+      displayName: this.currentUser.displayName,
+      email: this.currentUser.email,
+      photoURL: this.currentUser.photoURL,
+    };
+  }
 
   /**
    * Logs in to the API
    * Must be called after googleLogin() succeeded
    */
-  public apiLogin(): Observable<any> {
-      let url = `${constants.API_ENDPOINT}/signin`;
-      let request = { uid: this.authState.uid, email: this.authState.email };
-      return this.http.post(url, request)
-        .map((userData : APIUser) => {
-          return new APIUser().deserialize(userData);
+  public apiSignIn(): Observable<any> {
+    let url = `${constants.API_ENDPOINT}/auth/signin`;
+    let request = { email: this.authState.email, password: this.authState.uid, name: this.authState.displayName };
+    return this.http.post(url, request);
+  }
+
+  public apiSignOut(): Observable<any> {
+    let url = `${constants.API_ENDPOINT}/auth/signout`;
+    let headers = new HttpHeaders().set('Authorization', 'Bearer ' + this.userSession.token);
+    return this.http.post(url, null, {headers: headers});
+  }
+
+  /**
+   * AngularFireAuth related methods
+   */
+
+  get authenticated(): boolean {
+    return this.authState !== null;
+  }
+
+  get currentUser(): any {
+    return this.authenticated ? this.authState : null;
+  }
+
+  get currentUserObservable(): any {
+    return this.afAuth.authState;
+  }
+
+  /**
+   * This method will call the right Google login method based on the platform
+   */
+  public googleLogin(): Promise<any> {
+    if (this.platform.is('cordova')) {
+      return this.nativeGoogleLogin();
+    } else {
+      return this.webGoogleLogin();
+    }
+  }
+
+  /**
+   * Google login method for web devices
+   */
+  public async webGoogleLogin(): Promise<UserCredential> {
+    try {
+      const provider = new firebase.auth.GoogleAuthProvider();
+      return await this.afAuth.auth.signInWithPopup(provider);
+    } catch(err) {
+      console.error(err);
+    }
+  }
+
+  /**
+   * Google login method for native devices
+   */
+  public async nativeGoogleLogin(): Promise<User> {
+    try {
+
+      this.gplusUser = await this.gplus.login({
+        'webClientId': firebaseConfig.webClientId,
+        'offline': true,
+        'scopes': 'profile email'
+      })
+        .then(gplusUser => gplusUser)
+        .catch(err => {
+          throw new Error(err);
         });
+
+      let credentials = firebase.auth.GoogleAuthProvider.credential(null, this.gplusUser.accessToken);
+      return await this.afAuth.auth.signInWithCredential(credentials);
+
+    } catch(err) {
+      throw new Error(err);
     }
+  }
 
-    /**
-     * AngularFireAuth related methods
-     */
+  getAuthHeaders() {
+    return new HttpHeaders().set('Authorization', 'Bearer ' + this.userSession.token);
+  }
 
-    get authenticated(): boolean {
-      return this.authState !== null;
-    }
-
-    get currentUser(): any {
-      return this.authenticated ? this.authState : null;
-    }
-
-    get currentUserObservable(): any {
-      return this.afAuth.authState;
-    }
-
-    /**
-     * This method will call the right Google login method based on the platform
-     */
-    public googleLogin(): Promise<any> {
-      if (this.platform.is('cordova')) {
-        return this.nativeGoogleLogin();
-      } else {
-        return this.webGoogleLogin();
-      }
-    }
-
-    /**
-     * Google login method for web devices
-     */
-    public async webGoogleLogin(): Promise<UserCredential> {
-        try {
-          const provider = new firebase.auth.GoogleAuthProvider();
-          return await this.afAuth.auth.signInWithPopup(provider);
-        } catch(err) {
-          console.error(err);
-        }
-    }
-
-    /**
-     * Google login method for native devices
-     */
-    public async nativeGoogleLogin(): Promise<User> {
-          try {
-
-            let gplusUser = await this.gplus.login({
-                'webClientId': firebaseConfig.webClientId,
-                'offline': true,
-                'scopes': 'profile email'
-            })
-            .then(gplusUser => {
-                return gplusUser
-            })
-            .catch(err => console.error(err));
-
-            let credentials = firebase.auth.GoogleAuthProvider.credential(null, gplusUser.accessToken);
-            return await this.afAuth.auth.signInWithCredential(credentials);
-
-          } catch(err) {
-              console.error(err)
-          }
-      }
-
-    /**
-     * AngularFireAuth logout
-     */
-    public signOut(): Promise<void> {
-          return this.afAuth.auth.signOut();
-      }
+  /**
+   * App signout
+   */
+  public signOut(): Promise<void> {
+    return this.afAuth.auth.signOut().then(() => {
+      this.apiSignOut().subscribe(() => {
+        this.removeSession();
+      });
+    });
+  }
 }

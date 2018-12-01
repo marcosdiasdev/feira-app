@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { FeiraProvider } from '../../providers/feira/feira.provider';
+import { constants } from '../../app/constants';
 
 @Component({
   selector: 'page-feira',
@@ -9,6 +10,7 @@ import { FeiraProvider } from '../../providers/feira/feira.provider';
 export class FeiraPage {
 
   public feira = { id: null};
+  public dayNames = constants.dayNames;
 
   constructor(public navCtrl: NavController, 
               public navParams: NavParams,

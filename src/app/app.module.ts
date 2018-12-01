@@ -5,7 +5,7 @@ import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
 
-import { ContactPage } from '../pages/contact/contact';
+import { ProfilePage } from '../pages/profile/profile';
 import { FeiraPage } from '../pages/feira/feira';
 import { HomePage } from '../pages/home/home';
 import { LoginPage } from '../pages/login/login';
@@ -21,6 +21,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { QRScanner } from '@ionic-native/qr-scanner';
 import { IonicImageViewerModule } from 'ionic-img-viewer';
 import { ScreenOrientation } from '@ionic-native/screen-orientation';
+import { Geolocation } from '@ionic-native/geolocation';
 
 import { GoogleMaps } from '@ionic-native/google-maps';
 import { ProdutorProvider } from '../providers/produtor/produtor.provider';
@@ -41,7 +42,7 @@ import { SessionProvider } from '../providers/session/session';
   declarations: [
     MyApp,
     QRPage,
-    ContactPage,
+    ProfilePage,
     HomePage,
     TabsPage,
     FeiraPage,
@@ -64,7 +65,7 @@ import { SessionProvider } from '../providers/session/session';
   entryComponents: [
     MyApp,
     QRPage,
-    ContactPage,
+    ProfilePage,
     HomePage,
     TabsPage,
     FeiraPage,
@@ -89,7 +90,8 @@ import { SessionProvider } from '../providers/session/session';
     AngularFireAuth,
     GooglePlus,
     AuthProvider,
-    SessionProvider
+    SessionProvider,
+    Geolocation
   ]
 })
 export class AppModule {}
