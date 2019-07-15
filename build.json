@@ -1,0 +1,18 @@
+{
+    "android": {
+        "release": {
+            "keystore": "my-release-key.jks",
+            "storePassword": "unplugged@1999",
+            "alias": "my-alias",
+            "password" : "unplugged@1999",
+            "keystoreType": "JKS"
+        },
+        "debug": {
+            "keystore": "my-release-key.jks",
+            "storePassword": "unplugged@1999",
+            "alias": "my-alias",
+            "password" : "unplugged@1999",
+            "keystoreType": "JKS"
+        }        
+    }
+}

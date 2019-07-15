@@ -46,7 +46,7 @@ export class HomePage {
           this.items_backup = this.items;
         },
         error => {
-          console.error('Unable to get data: '  + error);
+          console.error('Unable to get data: '  + JSON.stringify(error));
         });
   }
 
@@ -64,14 +64,14 @@ export class HomePage {
         .subscribe(data => {
           console.log(data);
         }, error => {
-          console.error(error);
+          console.error(JSON.stringify(error));
         });
     } else {
       this.likeProvider.addLike(like)
         .subscribe(data => {
           console.log(data)
         }, error => {
-          console.error(error);
+          console.error(JSON.stringify(error));
         });
     }
   }

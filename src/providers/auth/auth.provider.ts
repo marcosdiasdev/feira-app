@@ -113,7 +113,7 @@ export class AuthProvider {
       const provider = new firebase.auth.GoogleAuthProvider();
       return await this.afAuth.auth.signInWithPopup(provider);
     } catch(err) {
-      console.error(err);
+      console.error(JSON.stringify(err));
     }
   }
 

@@ -21,6 +21,8 @@ export class QRPage {
 
   ionViewDidEnter() {
     this.scan();
+    // Navega até a propriedade 1 em vez de ler o QR
+    // this.navCtrl.push(PropriedadePage, { qrData: 1 });
   }
 
   ionViewWillLeave() {

@@ -25,7 +25,7 @@ export class LoginPage {
   goToHomePage() {
     this.navCtrl.push(TabsPage);
   }
-
+  
   signInWithGoogle() {
     this.authProvider.googleLogin().then((data) => {
       this.authProvider.apiSignIn().subscribe((token) => {
@@ -34,15 +34,13 @@ export class LoginPage {
           this.authProvider.createSession(sessionData).then(() => this.goToHomePage());
         }
       });
-    }).catch(error => console.log(error));
+    }).catch(error => console.log(JSON.stringify(error)));
   }
-
+  
   /*
-  signInWithGoogle2() {
+  signInWithGoogle() {
     this.authProvider.apiSignIn().subscribe((token) => {
-
       let tokenData = this.jwtHelper.decodeToken(token.access_token);
-      console.log(tokenData);
 
       if(tokenData.id > 0) {
         let user = new User().deserialize({
@@ -58,4 +56,5 @@ export class LoginPage {
     });
   }
   */
+  
 }
